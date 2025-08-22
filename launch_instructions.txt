@@ -1,0 +1,13 @@
+# Launch Environment
+
+### Virtual environment
+- enter backend dir with `cd .\api-backend\`
+- activate virtual environment
+    - `.\.venv\Scripts\activate`
+    - if does not work use `uv venv` and then run `.\.venv\Scripts\activate`
+    - deactivating the environment `deactivate`
+
+### API
+- `fastapi dev .\main.py`
+- To access API go `http://127.0.0.1:8000/docs`
+    - Raw version at `http://127.0.0.1:8000/`
