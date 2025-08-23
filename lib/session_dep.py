@@ -6,9 +6,8 @@ STATEMENTS = {
     'get_useer_where_id_match': 'SELECT * FROM',
     'get_all_records_where_match': 'SELECT * FROM health_records WHERE UserID = $USER$'
 }
-db_url = f"mysql://localhost:3306/"
-connect_args = {"check_same_thread": False}
-engine = create_engine(url=db_url, connect_args=connect_args)
+db_url = f"mysql://health_dash:health_pwd@localhost/health_dash"
+engine = create_engine(url=db_url)
 conn = engine.connect()
 
 def get_session():

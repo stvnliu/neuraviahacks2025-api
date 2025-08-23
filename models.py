@@ -14,4 +14,3 @@ class HealthRecord(SQLModel, table=True):
     Height: int = Field(nullable=False)
     Weight: int = Field(nullable=False)
     Timestamp: datetime = Field(nullable=False)
-    
