@@ -15,3 +15,14 @@
     ]
 }
 ```
+- `POST /data`
+  - POST body JSON of following schema:
+  ```js
+  {
+    fname: string,
+    lname: string,
+    age: number,
+    heightMetre: number,
+    weightKg: number,
+  }
+  ```
