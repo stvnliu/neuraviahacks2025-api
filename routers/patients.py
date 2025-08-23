@@ -1,31 +1,23 @@
 from fastapi import APIRouter
-router = APIRouter()
+from ..models import HealthRecord
+from ..lib.session_dep import SessionDep
+router = APIRouter(prefix="/data")
+
+@router.get("/bmi")
+def get_bmi(user:str) -> float:
+    # TODO: check for correct Authorization header
+    return {"something" : user}
+
+@router.get("/bmia")
+def bmi_calc(height: float, weight: float) -> float:
+    # TODO: check for correct Authorization header
+    return weight / (height)**2
 
 
-def 
+@router.post("/upload")
+def upload_record(new_record: HealthRecord, session: SessionDep) -> HealthRecord:
+    session.add(new_record)
+    session.commit()
+    session.refresh(new_record)
+    return new_record
 
-# {"fname":"joe","lname":"mama","age":"69","height":"100","weight":"78"}
-# type TimeSeriesBMI = {
-#         fname: string,
-#         lname: string,
-#         age: number,
-#         heightMetre: number,
-#         weightKg: number,
-#         timestamp: number,
-#     }
-
-#class Person(BaseModel):
-#    fname: str
-#    lname: str 
- #   age : int
-#   heightMetre: float
- #    weightKg: float
-   #  def __init__(self, fname, lname, age, heightMetre, weightKg):
-     #    self.age = age
-       #  self.fname = fname
-       #  self.lname = lname
-       # self.heightMetre = heightMetre
-        #self.weightKg = weightKg
-    #def BMICalculator(self) -> float:
-     #   bmi = (self.weightKg/(self.heightMetre)^2) 
-      #  return bmi

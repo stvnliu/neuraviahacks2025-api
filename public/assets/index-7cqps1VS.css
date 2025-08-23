@@ -1,0 +1,1 @@
+.app-container{display:grid;grid-template-columns:30% auto auto auto;gap:50px;margin:25px}.dashboard-title{margin:auto}.datavis-tool{width:100%;grid-column-start:2;grid-column-end:5}
