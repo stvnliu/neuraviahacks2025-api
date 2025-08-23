@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from ..models import HealthRecord
+from ..models import HealthRecord, User
 from ..lib.session_dep import SessionDep
 router = APIRouter(prefix="/data")
 
