@@ -29,3 +29,4 @@ class Profile(BaseModel):
     first_name: str
     last_name: str
     token: str
+    age: int

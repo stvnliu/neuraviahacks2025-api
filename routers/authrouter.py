@@ -31,7 +31,7 @@ def authenticate(username:str, password_hash:str, session: SessionDep) -> Profil
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "problem with auth token registration.")
         if not DatabaseHandler.put_token(t, session):
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "problem with database insertion")
-        return Profile(username=user.UserName, first_name=user.FirstName, last_name=user.LastName, token=t.Token)
+        return Profile(username=user.UserName, first_name=user.FirstName, last_name=user.LastName, token=t.Token, age=user.Age)
 
 
 @router.post("/register")

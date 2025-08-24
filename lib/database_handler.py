@@ -11,8 +11,10 @@ class DatabaseHandler:
     def init_db_tables():
         SQLModel.metadata.create_all(engine)
 
-    def get_health_record(id:int, session:SessionDep) -> HealthRecord:
-        return session.get(HealthRecord, id)
+    def get_health_record(username: str, session:SessionDep) -> list[HealthRecord]:
+        statement = select(HealthRecord).where(HealthRecord.UserName == username).limit(12).order_by(HealthRecord.Timestamp)
+        result = session.exec(statement).all()
+        return result
 
     def get_user(id:int, session:SessionDep) -> User:
         return session.get(User, id)
