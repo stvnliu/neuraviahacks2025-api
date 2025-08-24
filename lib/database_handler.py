@@ -22,10 +22,10 @@ class DatabaseHandler:
         result = session.exec(statement).first()
         return result
     def verify_token(token: str, userId: str, session: SessionDep) -> bool:
-        result = session.exec(select(AuthTable).where(AuthTable.UserID == userId)).first()
-        print(result)
-        if result != None and result.Token == token and result.ExpiryTimestamp > datetime.now():
-            return True
+        results = session.exec(select(AuthTable).where(AuthTable.UserID == userId)).all()
+        for result in results:
+            if result != None and result.Token == token and result.ExpiryTimestamp > datetime.now():
+                return True
         return False
     def put_token(body: AuthTable, session: SessionDep) -> bool:
         try:

@@ -13,9 +13,9 @@ class User(SQLModel, table=True):
 
 class HealthRecord(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
-    UserID: int = Field(nullable=False)
-    Height: int = Field(nullable=False)
-    Weight: int = Field(nullable=False)
+    UserName: str = Field(nullable=False)
+    Height: float = Field(nullable=False)
+    Weight: float = Field(nullable=False)
     Timestamp: datetime = Field(nullable=False)
 
 class AuthTable(SQLModel, table=True):
@@ -28,3 +28,4 @@ class Profile(BaseModel):
     username: str
     first_name: str
     last_name: str
+    token: str

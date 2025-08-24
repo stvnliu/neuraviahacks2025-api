@@ -19,4 +19,4 @@ class AuthUtils:
             + timedelta(hours=1)).timestamp())
         return AuthTable(UserID=user.id, Token=str(uuid4()), ExpiryTimestamp=expiry_date)
     def verify_token(token: str, username: str, session: SessionDep) -> bool:
-        return DatabaseHandler.verify_token(token, username, session)
+        return DatabaseHandler.verify_token(token, DatabaseHandler.get_user_by_name(username, session).id, session)

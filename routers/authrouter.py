@@ -17,11 +17,11 @@ def auth_by_token(username: str, token: str, session: SessionDep) -> Profile:
         # print("token verification failed")
         raise HTTPException(status.HTTP_403_FORBIDDEN)
     # print(user)
-    return Profile(username=user.UserName, first_name=user.FirstName, last_name=user.LastName)
+    return Profile(username=user.UserName, first_name=user.FirstName, last_name=user.LastName, token=token)
 @router.post("/login")
 def authenticate(username:str, password_hash:str, session: SessionDep) -> Profile:
     result = DatabaseHandler.get_user_by_name(username, session)
-    if result is None: return HTTPException(status.HTTP_404_NOT_FOUND, "User not found!")
+    if result is None: raise HTTPException(status.HTTP_404_NOT_FOUND, "User not found!")
     user: User = result
     if user.PasswordHash != password_hash: 
         raise HTTPException(status.HTTP_403_FORBIDDEN, "password incorrect!")
@@ -31,7 +31,7 @@ def authenticate(username:str, password_hash:str, session: SessionDep) -> Profil
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "problem with auth token registration.")
         if not DatabaseHandler.put_token(t, session):
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "problem with database insertion")
-        return Profile(username=user.UserName, first_name=user.FirstName, last_name=user.LastName)
+        return Profile(username=user.UserName, first_name=user.FirstName, last_name=user.LastName, token=t.Token)
 
 
 @router.post("/register")
