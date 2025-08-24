@@ -4,15 +4,9 @@ from ..lib.session_dep import SessionDep
 router = APIRouter(prefix="/data")
 
 @router.get("/bmi")
-def get_bmi(user:str) -> list[float]:
-    # TODO: check for correct Authorization header
-    return {"something" : user}
-
-# BMI endpoint WORKING
-@router.get("/bmia")
-def bmi_calc(height: float, weight: float) -> float:
-    # TODO: check for correct Authorization header
-    return weight / (height)**2
+def get_bmi(user:str, token: str) -> list[float]:
+    return []
+    # TODO: check token is correct
 
 
 @router.post("/upload")

@@ -2,30 +2,21 @@ import string
 from hashlib import sha256
 import random
 from datetime import datetime, timedelta
-LENGTH=16
-# All lowercase, uppercase, and digits
-ALPHANUMERIC = list(string.ascii_letters + string.digits)
+from ..models import AuthTable
+from .database_handler import DatabaseHandler
+from .session_dep import SessionDep
+from uuid import uuid4
 
-def __gen_token(length: int = LENGTH) -> str:
-    builder = ""
-    for _ in range(length):
-        builder += random.choice(ALPHANUMERIC)
-    return builder
-
-
-class AuthBody:
-    def __init__(self, token: str, until_timestamp: int):
-        self.token = token
-        self.until_timestamp = until_timestamp
 
 
 class AuthUtils:
-    def get_token() -> AuthBody:
-        expiry_date = int(( 
-            datetime.now() 
-            + timedelta(hours=1))
-            .timestamp())
-        return AuthBody( __gen_token(), expiry_date)
-    
-    # def get_hash(data:str) -> str:
-    #     return sha256(data.encode('utf-8')).hexdigest()
+    def new_token(username: str, session: SessionDep) -> AuthTable | None:
+        user = DatabaseHandler.get_user_by_name(username, session)
+        if user == None:
+            print("something went wrong")
+            return None
+        expiry_date = datetime.fromtimestamp((datetime.now() 
+            + timedelta(hours=1)).timestamp())
+        return AuthTable(UserID=user.id, Token=str(uuid4()), ExpiryTimestamp=expiry_date)
+    def verify_token(token: str, username: str, session: SessionDep) -> bool:
+        return DatabaseHandler.verify_token(token, username, session)

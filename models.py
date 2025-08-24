@@ -4,7 +4,7 @@ from datetime import datetime
 from pydantic import BaseModel
 
 class User(SQLModel, table=True):
-    UserID:int = Field(nullable=False, primary_key=True )
+    id:int | None = Field(default=None, primary_key=True )
     UserName:str = Field(nullable=False)
     PasswordHash: str = Field(nullable=False)
     FirstName:str = Field(nullable=False)
@@ -12,14 +12,14 @@ class User(SQLModel, table=True):
     Age:int = Field(nullable=False)
 
 class HealthRecord(SQLModel, table=True):
-    HealthRecordID: int = Field(nullable=False, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     UserID: int = Field(nullable=False)
     Height: int = Field(nullable=False)
     Weight: int = Field(nullable=False)
     Timestamp: datetime = Field(nullable=False)
 
 class AuthTable(SQLModel, table=True):
-    AuthID:int = Field(nullable=False, primary_key=True)
+    id:int | None = Field(default=None, primary_key=True)
     UserID:int = Field(nullable=False)
     Token:str = Field(nullable=False)
     ExpiryTimestamp:datetime = Field(nullable=False)
