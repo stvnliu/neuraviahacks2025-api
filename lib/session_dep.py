@@ -8,9 +8,7 @@ STATEMENTS = {
     "get_useer_where_id_match": "SELECT * FROM",
     "get_all_records_where_match": "SELECT * FROM health_records WHERE UserID = $USER$",
 }
-# db_url = os.environ["DATABASE_URL"]
-# db_url = "mysql://fastapi:9uh67fg@db:3306/healthwatch"
-db_url = "mysql://root:9uh67fg@db:3306/healthwatch"
+db_url = os.environ["DATABASE_URL"]
 engine = create_engine(url=db_url)
 
 
